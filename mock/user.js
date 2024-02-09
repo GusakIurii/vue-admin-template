@@ -5,6 +5,12 @@ const tokens = {
   },
   editor: {
     token: 'editor-token'
+  },
+  user: {
+    token: 'user-token'
+  },
+  trinity1968: {
+    token: 'password-token'
   }
 }
 
@@ -20,6 +26,18 @@ const users = {
     introduction: 'I am an editor',
     avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
     name: 'Normal Editor'
+  },
+  'user-token': {
+    roles: ['user'],
+    introduction: 'I am an user',
+    avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
+    name: 'Normal User'
+  },
+  'password-token': {
+    roles: ['password'],
+    introduction: 'I am an user',
+    avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
+    name: 'Normal User'
   }
 }
 

@@ -13,7 +13,8 @@ const name = defaultSettings.title || 'vue Admin Template' // page title
 // For example, Mac: sudo npm run
 // You can change the port by the following methods:
 // port = 9528 npm run dev OR npm run dev --port = 9528
-const port = process.env.port || process.env.npm_config_port || 9528 // dev port
+const port = process.env.port || process.env.npm_config_port || 8080 // dev port
+const fs = require('fs')
 
 // All configuration item explanations can be find in https://cli.vuejs.org/config/
 module.exports = {
@@ -30,13 +31,29 @@ module.exports = {
   lintOnSave: process.env.NODE_ENV === 'development',
   productionSourceMap: false,
   devServer: {
-    port: port,
+    host: 'spe.pp.ua',
+    port: port, //port,
     open: true,
     overlay: {
       warnings: false,
       errors: true
     },
-    before: require('./mock/mock-server.js')
+    https: {
+      key: require("fs").readFileSync('/certs/spe/private.key'),
+      cert: require("fs").readFileSync('/certs/spe/certificate.crt')
+    },
+    //https: true,
+    // https: {
+    //   key: require("fs").readFileSync('/certs/privkey.pem'),
+    //   cert: require("fs").readFileSync('/certs/cert.pem')
+    //  key: fs.readFileSync('./certs/privkey.pem'),
+    //  cert: fs.readFileSync('./certs/cert.pem'),
+    // },
+    // public: 'http://spe.pp.ua:8080',
+    // public: 'https://copy.spe.pp.ua:'+port,
+    disableHostCheck: true,
+    // // before: require('./mock/mock-server.js')
+    // after: require('./mock/mock-server.js')
   },
   configureWebpack: {
     // provide the app's title in webpack's name field, so that

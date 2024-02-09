@@ -4,11 +4,13 @@
 
     <breadcrumb class="breadcrumb-container" />
 
-    <div class="right-menu">
-      <el-dropdown class="avatar-container" trigger="click">
-        <div class="avatar-wrapper">
-          <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
-          <i class="el-icon-caret-bottom" />
+   <div class="right-menu">
+   <button type="button" class="btn btn-secondary btn-sm cmdBtns" v-on:click="logout">Log Out</button>
+      <!-- <el-dropdown class="avatar-container" trigger="click">
+        <div class="avatar-wrapper" divided @click.native="logout">
+           <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
+          <i class="el-icon-caret-bottom" /> 
+          <span>LOGOUT</span> 
         </div>
         <el-dropdown-menu slot="dropdown" class="user-dropdown">
           <router-link to="/">
@@ -26,7 +28,7 @@
             <span style="display:block;">Log Out</span>
           </el-dropdown-item>
         </el-dropdown-menu>
-      </el-dropdown>
+      </el-dropdown> -->
     </div>
   </div>
 </template>
@@ -53,6 +55,7 @@ export default {
     },
     async logout() {
       await this.$store.dispatch('user/logout')
+      await this.$store.dispatch('users/reset')
       this.$router.push(`/login?redirect=${this.$route.fullPath}`)
     }
   }
@@ -61,7 +64,7 @@ export default {
 
 <style lang="scss" scoped>
 .navbar {
-  height: 50px;
+  // height: 50px;
   overflow: hidden;
   position: relative;
   background: #fff;
@@ -88,6 +91,7 @@ export default {
     float: right;
     height: 100%;
     line-height: 50px;
+    margin-right: 10px;
 
     &:focus {
       outline: none;

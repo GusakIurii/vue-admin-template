@@ -15,6 +15,11 @@ export function isExternal(path) {
  * @returns {Boolean}
  */
 export function validUsername(str) {
-  const valid_map = ['admin', 'editor']
+  const valid_map = ['admin', 'editor', 'user']
+  return valid_map.indexOf(str.trim()) >= 0
+}
+
+export function validPassword(str) {
+  const valid_map = ['var123456']
   return valid_map.indexOf(str.trim()) >= 0
 }

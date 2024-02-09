@@ -43,10 +43,10 @@
 
       <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">Login</el-button>
 
-      <div class="tips">
+  <!--    <div class="tips">
         <span style="margin-right:20px;">username: admin</span>
         <span> password: any</span>
-      </div>
+      </div> -->
 
     </el-form>
   </div>
@@ -54,6 +54,7 @@
 
 <script>
 import { validUsername } from '@/utils/validate'
+import { validPassword } from '@/utils/validate'
 
 export default {
   name: 'Login',
@@ -68,30 +69,34 @@ export default {
     const validatePassword = (rule, value, callback) => {
       if (value.length < 6) {
         callback(new Error('The password can not be less than 6 digits'))
+      }else if (!validPassword(value)){ 
+        callback(new Error('The password is incorrect')) 
       } else {
         callback()
       }
     }
     return {
       loginForm: {
-        username: 'admin',
-        password: '111111'
+        username: '',
+        password: ''
       },
       loginRules: {
-        username: [{ required: true, trigger: 'blur', validator: validateUsername }],
-        password: [{ required: true, trigger: 'blur', validator: validatePassword }]
+        username: [{ required: true, trigger: 'blur'/* , validator: validateUsername */}],
+        password: [{ required: true, trigger: 'blur' /*, validator: validatePassword */}]
       },
       loading: false,
       passwordType: 'password',
       redirect: undefined
     }
   },
+  //created: function() {
+    
   watch: {
     $route: {
       handler: function(route) {
         this.redirect = route.query && route.query.redirect
       },
-      immediate: true
+      immediate: false
     }
   },
   methods: {
@@ -106,11 +111,34 @@ export default {
       })
     },
     handleLogin() {
+      // let usernameObj4 = JSON.parse(localStorage.getItem("vuex"))
+      // console.log(usernameObj4)
+      // let user3 = usernameObj4.user
+      // console.log(user3)
+      // // const role = usernameObj2.user.role
+      // let userRole = usernameObj4.user.role
+      // console.log('userRole3: ' + userRole)
       this.$refs.loginForm.validate(valid => {
+        console.log('submit login: ' + valid)
         if (valid) {
-          this.loading = true
+          // let hiddenReg = false
+
+          // if(userRole !== 'superadmin'){
+          //   hiddenReg = true
+          // }else{
+          //   hiddenReg = false
+          // }
+          
+          // console.log('hiddenReg: ' + hiddenReg)
+
+          // let hiddenRegStorage = usernameObj4.user.hiddenReg
+          // localStorage.setItem(hiddenRegStorage, hiddenReg)
+          
+          this.loading = false
           this.$store.dispatch('user/login', this.loginForm).then(() => {
+            // setTimeout(() => {
             this.$router.push({ path: this.redirect || '/' })
+            // },2000)
             this.loading = false
           }).catch(() => {
             this.loading = false
